@@ -1,6 +1,6 @@
 #!groovy
 
-node {
+node (packer-node) {
 
   def err = null
   def environment = "Development"
@@ -29,13 +29,12 @@ node {
     
     /* Build if validation passes */
     stage ('Build') {
-      withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'), 
-                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+      
         sh """
          set +x
-         packer build -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} dcos_agent_centos7.4.json
+         packer build dcos_agent_centos7.4.json
          """
-        }  
+          
     }
 
     stage ('Notify') {
