@@ -1,6 +1,6 @@
 #!groovy
 
-node (packer-node) {
+node  ('packer-node'){
 
   def err = null
   def environment = "Development"
